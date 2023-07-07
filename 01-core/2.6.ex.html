@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 사용자에게 이름을 물어봄 -->
+    <!-- 확인을 한 번 함(이 이름이 정확히 맞나요?) -->
+    <!-- 확인을 클릭하면 이름이 출력(당신의 이름은 ...입니다.) -->
+    <script>
+      let name = prompt("당신의 이름을 입력하세요", "홍길동");
+
+      while (true) {
+        let booleanName = confirm(`${name}이 맞나요?`);
+
+        if (booleanName) {
+          alert(`당신의 이름은 ${name}입니다.`);
+          break;
+        } else {
+          name = prompt("당신의 이름을 입력하세요", "홍길동");
+        }
+      }
+    </script>
+  </body>
+</html>
