@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //  자바스크립트의 객체
+      //  자바와 Map하고 비슷한
+      //  key는 문자열만 가능함
+      //  Map<Integer,String>
+      //  Map<String, ...>
+      //  { "1": 1234, "abc": "abcdasd" }
+      // let user = {}; // 빈객체로 초기화
+      let user = {
+        // 속성(key, property): 값
+        name: "John",
+        age: 30,
+      };
+
+      // 속성값 접근
+      // 객체변수명.속성명
+      console.log(user.name);
+
+      console.log(user);
+      // 속성 추가
+      user.isAdmin = true;
+      // user[isAdmin] = true; 사실 이렇게 생성된거임.
+      console.log(user);
+
+      // 속성 삭제
+      delete user.age;
+      console.log(user);
+
+      // 속성삾 변경
+      user.name = "peter";
+      console.log(user);
+
+      // 상수(const)라서 다른 객체 대입 불가, 초기화 불가
+      // 변수(let)은 가능
+      // user = { orderId: 1234, product: "마스크" };
+      // console.log(user);
+
+      // 대괄호를 이용하여 객체 속성 접근할 수 있음. 이해 잘 해봐 .은 큰거만 []은 접근이 가능
+      user["name"];
+      console.log(user["name"]);
+      delete user["isAdmin"];
+      console.log(user);
+
+      let prop = "name";
+      console.log(user[prop]);
+
+      let fruit = prompt("어떤 과일을 구매하시겠습니까?", "apple");
+      let bag = {
+        [fruit]: 5, // 변수 fruit에서 프로퍼티 이름을 동적으로 받아 옵니다.
+      };
+
+      // 사용자가 apple -> bag.apple, mango -> bag.mango
+
+      // function makeUser(name, age) {
+      //   // name, age 속성이 있는객체를 생성해서 반환
+      //   return {
+      //     name: name,
+      //     age: age,
+      //   };
+      // }
+
+      // {}: 객체 생성문법
+      // 변수 = {...} 객체를 생성해서 변수에 대힙
+      // return {...}, 객체를 생성하여 반환
+
+      const makeUser = (name, age) => ({
+        // 속성명하고 값 변수명이 동일
+        // name: name,
+        // age: age,
+
+        name,
+        age,
+        // 주석친 것과 같음
+      });
+
+      let u = makeUser("john", 23);
+      console.log("--makeUser--");
+      console.log(u);
+
+      // in 연산자로 속성 존재여부 확인
+      // "key" in object
+      console.log("age" in u);
+
+      // for(속성명 변수 in 객체변수)
+      for (let prop in u) {
+        // 객체의 속성명이 prop변수에
+        // 들어가면서 객체 속성 개수만큼 반복
+        // 탐색 순서는 속성을 추가한 순서대로
+        console.log(`${prop}:  ${u[prop]}`);
+      }
+
+      console.table(u);
+    </script>
+  </body>
+</html>
