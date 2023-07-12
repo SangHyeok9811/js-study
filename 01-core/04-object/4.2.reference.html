@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 객체를 만들때는 보통 const로 만듬. 덮어씌우는게 불가능하게. 속성값은 변경 가능.
+      let user = {
+        name: "john",
+        age: 30,
+      };
+
+      let clone = {};
+      for (let prop in user) {
+        // 속성을 생성하면서 대입
+        clone[prop] = user[prop];
+      }
+      clone.name = "Peter"; // user.name은 John
+      console.log(clone.name);
+
+      let permissions1 = { canView: true };
+      let permissions2 = { canEdit: true };
+
+      // 기존 객체에 속성을 복사
+      // Object.assign(대상객체, 소스객체, ...);
+      // 대상객체의 같은 속성이 있으면 덮어씌움
+      // 대상객체가 const로 선언되었어도 속성값만 변경하는 것이기 때문에 가능
+      // permissions1과 permissions2의 프로퍼티를 user로 복사합니다.
+      Object.assign(user, permissions1, permissions2);
+      console.log(user);
+      console.log(clone);
+
+      // 새로운객체를 생성
+      // 대상객체 새로운 객체니까
+      // 대상객체를 반환함
+      const permissionedUser = Object.assign(
+        {},
+        user,
+        permissions1,
+        permissions2
+      );
+      console.log(permissionedUser);
+      console.log(user === permissionedUser);
+
+      // ...: spread operator
+      // 객체의 모든 속성을 열거를 해주는 연산
+      // 원래 객체를 copy해서 신규 객체를 생성할 때 사용.
+      // {} 객체 생성
+      // {...user} user객체의 속성을 복제해서 객체 생성
+      // 복제참조할 객체가 const로 선언되어있으면 불가능
+      user = { ...user, ...permissions1, ...permissions2, name: "new!!" }; // 복사 생성하되 이름을 덮어씌움
+      console.log(user);
+
+      let clone1 = Object.assign({}, user);
+      console.log(clone1);
+
+      let clone2 = { ...user };
+      console.log(clone2);
+
+      // 객체를 복제, 하위 속성까지 복제
+      // 함수는 복제 안되는 방법
+      // 객체 데이터 값만 있을 때 deepClone 하는 방법
+      // JSON.stringify -> 객체를 문자열로 변환
+      // JSON.parse -> 문자열을 객체로 변환
+      // JavaScripte Object Notation
+      // 자바스크립트 객체 표기법
+      // 속성명은 ""쌍따옴표로 감싸줌 "age":30
+      // 문자열 속성값은 "" 쌍따옴표로만 사용
+      let clone3 = JSON.parse(JSON.stringify(user));
+      console.log(JSON.stringify(user)); // 문자열로 출력
+    </script>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let a = "abc";
+      const user = {
+        a: "a",
+        b: "b",
+      };
+      console.log(user);
+
+      // 템플릿 리터럴
+      let c = `${a}+++
+        asadasdsadasd
+        12321321321
+        `;
+      console.log(c);
+
+      // const item = `
+      // <li class=${style}>
+      //   ${content}
+      //   </li>`;????????????
+
+      // 문자열의 길이
+      const aaa = "aaa";
+      console.log("aaa".length);
+      console.log(aaa.length);
+
+      // 특정 인덱스의 글자 접근
+      // 배열 사용한다
+      const str = "abc";
+      console.log(str[1]);
+
+      // for ...of
+      // 반복 가능한 객체(배열, 문자열...)
+      // for(변수 of iterable)
+      // 변수에 인덱스위치의 '값'
+      // 배열은 숫자(인덱스)로 접근
+      // object는 이름으로 접근
+      for (let char of "Hello") {
+        console.log(char);
+      }
+      console.log("----------------");
+      for (let prop in "Hello") {
+        console.log(prop);
+      }
+
+      let users = {
+        jbh: {
+          phone: "01099398647",
+        },
+      };
+      console.log(users["jbh"]);
+
+      let userArr = [{ phone: "01093233353" }];
+      console.log(userArr[0]);
+    </script>
+  </body>
+</html>
