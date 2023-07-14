@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let colors = ["Red", "Blue", "Green", "Yellow", "Black"];
+
+      // function removeColor(colors) {
+      //   colors.splice(2, 2);
+      //   return alert(colors);
+      // }
+      // removeColor(colors);
+
+      // 1번
+      function removeColor(colors) {
+        const index = colors.indexOf("Green");
+        if (index > -1) {
+          colors.splice(index, 2);
+        }
+        return colors;
+      }
+      // alert(removeColor(colors));
+
+      // 2번
+      let arr = [0, 1, 2, 3, 4, 5];
+      function firstThree(arr) {
+        return arr.slice(0, 3);
+      }
+      // alert(firstThree(arr));
+
+      // 3번
+      fruits1 = ["apple", "banana", "cherry"];
+      fruits2 = ["date", "elderberry", "fig"];
+      function mergeFruits(fruits1, fruits2) {
+        // let fruits3 = [...fruits1, ...fruits2];
+        let fruits3 = fruits1.concat(fruits2);
+        return fruits3;
+      }
+      // console.table(mergeFruits(fruits1, fruits2));
+
+      // 4번
+      let numbers = [1, 2, 3, 4, 5];
+      function squareNumbers(numbers) {
+        let newArray = [];
+        numbers.forEach((num) => {
+          newArray.push(num * num);
+        });
+        return newArray;
+      }
+      // alert(squareNumbers(numbers));
+
+      // 5번
+      let arr3 = ["1번", "2번", "3번", "4번", "5번", "6번"];
+      function swapFirstAndLast(arrArr) {
+        [arr3[0], arr3[arr3.length - 1]] = [arr3[arr3.length - 1], arr3[0]];
+        return arr3;
+      }
+      // alert(swapFirstAndLast(arr3));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1번
+      const fruits = ["banana", "apple", "orange", "pineapple", "kiwi"];
+      let findFruits = fruits.find(
+        (fruit) =>
+          // console.log(fruit);
+          fruit == "orange"
+      );
+
+      // console.log(findFruits);
+
+      // 2번
+      const nums = [1, 4, 5, 7, 2, 9, 3];
+      let numOverfour = nums.filter((num) => num >= 5);
+
+      // console.log(numOverfour);
+
+      // 3번
+      const numbers = [1, 2, 3, 4, 5];
+      let multiplyTen = numbers.map((num) => num * 10);
+      // console.log(multiplyTen);
+
+      // 4번
+      const persons = [
+        {
+          name: "Kim",
+          skills: ["JavaScript", "HTML", "CSS"],
+        },
+        {
+          name: "Lee",
+          skills: ["Java", "Python", "SQL"],
+        },
+        {
+          name: "Park",
+          skills: ["Java", "JavaScript", "CSS"],
+        },
+      ];
+
+      let findJavaSkilledPerson = persons
+        .filter((person) => person.skills.includes("Java"))
+        .map((person) => person.name);
+
+      // console.log(findJavaSkilledPerson);
+
+      // 5번
+      const peopleGr1 = [
+        { name: "John", age: 28 },
+        { name: "Jane", age: 24 },
+        { name: "Mike", age: 30 },
+      ];
+
+      let peopleName = peopleGr1.map((peopleElement) => peopleElement.name);
+      // console.log(peopleName);
+
+      // 6번
+      const words = ["javascript", "python", "java", "c", "ruby", "rust"];
+
+      let lengthOverFour = words.filter((word) => word.length >= 5);
+      // console.log(lengthOverFour);
+
+      // 7번
+      const peopleGr2 = [
+        { name: "John", age: 28 },
+        { name: "Jane", age: 24 },
+        { name: "Mike", age: 30 },
+      ];
+
+      let ageTweentyFourOver = peopleGr2
+        .filter((people) => people.age >= 25)
+        .map((people) => people.name);
+      // console.log(ageTweentyFourOver);
+
+      // 8번
+      const chars = ["a", "b", "c", "a", "d", "e", "f", "a"];
+
+      let removeAArr = chars.filter((char) => char !== "a");
+      // console.log(removeAArr);
+
+      // 9번
+      const numsGr = [1, 2, 3, 4, 5];
+      let numPlusFive = numsGr.map((num) => num + 5);
+      // console.log(numPlusFive);
+
+      // 10번
+      const names = ["Jane", "John", "Jim", "Jill", "Jack"];
+      let johnIndex = names.findIndex((name) => name === "John");
+      console.log(johnIndex);
+      // console.log(names.indexOf("John"));
+    </script>
+  </body>
+</html>

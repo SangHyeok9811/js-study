@@ -6,6 +6,30 @@
     <title>Document</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      let admin = prompt("Admin을 입력하세요");
+      let loginSystem = function (admin) {
+        let passSuccess = "TheMaster";
+
+        if (admin === "Admin") {
+          let pass = prompt("비밀번호를 입력하세요");
+          let passOk =
+            pass === passSuccess
+              ? "Welcome!"
+              : pass === null
+              ? "Canceled"
+              : pass !== passSuccess
+              ? "Wrong password"
+              : "";
+          alert(passOk);
+        } else if (typeof admin !== "string") {
+          alert("취소되었습니다.");
+        } else if (admin !== "Admin") {
+          alert("틀렸습니다.");
+        } else {
+        }
+      };
+      console.log(loginSystem(admin));
+    </script>
   </body>
 </html>

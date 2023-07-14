@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = ["I", "study", "JavaScript"];
+      // delete arr[1]; // 값이 undifiend가 됨
+      // alert(arr[1]);
+      // arr,splice(삭제할시작인덱스, 삭제할요소 개수)
+      // arr.splice(1, 1);
+      // 삭제할 요소 개수 없이 인덱스만 넣으면
+      // 해당 인덱스 포함하여 뒤에 있는 모든요소 삭제
+      // arr.splice(1); // study 삭제
+      // console.table(arr);
+      console.log(arr.length); // 2
+
+      const toAddArr = ["learn", "Java"];
+      // 삭제한 요소가 반환이 된다.
+      // 특정위치에서 여러개를 삭제시키고 꺼내오는 용도
+      const arr2 = arr.splice(1, 2, ...toAddArr);
+      //  반환이 됨.
+      // console.log(arr); // arr는 i learn java가 됨
+      console.log(arr2); // arr.splice로 잘라낸 study, JavaScript가 출력
+
+      // const obj = {
+      //   a: 0,
+      //   b: 1,
+      // };
+
+      // const obj2 = { ...obj, c: 1 };
+
+      // console.log(obj2);
+
+      console.log("==============================================");
+
+      // string.slice와 동일
+      // 원래 배열을 그대로 하고 자른 것들은 반환 배열로
+      // 배열 통째로 복사
+      const arr3 = arr.slice();
+      // slice는 기존 배열은 그대로임. // 타겟생성
+      // splice는 기존 배열이 변경. // 소스 변경
+      const arr4 = arr.slice(2); // Java
+      console.log(arr); // arr는 그대로
+
+      console.log("==============================================");
+
+      // concat // 소스를 고치는게 아니라 새로운 타겟을 만듬
+      let nums = [1, 2];
+      // 배열이 결합은 됐으나(새로운 배열로 생성)
+      // nums가 참조하는 배열(nums 이름은 동일하나
+      // 참조하는 거는 기존 [1,2]배열의 nums 참조한다?(splice))
+      // nums.splice(nums.length, 0, ...[3, 4]);
+
+      // 배열이 결합되면서새로운 참조배열이 생성
+      // nums가 참조하는 배열은 달라졌다
+      // nums = nums.concat([3, 4]);
+      // console.table(nums);
+      // const newNums = nums.concat([3, 4]);
+      // console.log(newNums);
+
+      // let nums2 = [...nums, ...[3, 4]];
+      // console.log(nums2);
+
+      // for Eeah
+      // arr.forEach: 요소 개수만큼 반복
+      // 배열 인덱스가 필요하다 (for ...in)
+      // 배열 요소만 필요하다(for ... of)
+      // for (let index in arr) {
+      //   console.log(arr[index]);
+      // }
+      // for (let elm of arr) {
+      //   console.log(elm);
+      // }
+
+      // ["Bilbo", "Gandalf", "Nazgul"].forEach((item, index, array) => {
+      //   alert(`${item} is at index ${index} in ${array}`);
+      // });
+
+      const arr5 = [{ val: 1 }, { val: 2 }, { val: 3 }];
+
+      // obj -> arr5[0] : 참조상태일 때는 indexOf가 됨  // 0
+      // obj = {...arr[0]} : 새로운객체 indexOf가 안됨  // -1
+      // const obj = arr5[0];
+      const obj = { ...arr5[0] };
+      console.log(arr5.indexOf(obj));
+    </script>
+  </body>
+</html>
