@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    [data-major="full-stack"] {
+      color: skyblue;
+    }
+    /* 스타일이 커스텀 속성 'order-state'에 따라 변합니다. */
+    .order[order-state="new"] {
+      color: green;
+    }
+
+    .order[order-state="pending"] {
+      color: blue;
+    }
+
+    .order[order-state="canceled"] {
+      color: red;
+    }
+  </style>
+  <body id="test" something="non-standard">
+    <ul>
+      <li data-sno="html-0001">고대근</li>
+      <li data-sno="java-0002">명승정</li>
+      <li data-sno="css-0003">남소나</li>
+    </ul>
+    <div class="order" order-state="new">A new order.</div>
+
+    <div class="order" order-state="pending">A pending order.</div>
+
+    <div class="order" order-state="canceled">A canceled order.</div>
+  </body>
+  <script src="1.6.props.js"></script>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [1, 2, 2, 3, 4, 4, 5];
+      const set = new Set(arr);
+      // console.log(set);
+
+      let arrA = [1, 2, 3, 4, 5],
+        arrB = [4, 5, 6, 7, 8];
+
+      let setA = new Set(arrA);
+      let setB = new Set(arrB);
+      let arrC = [...setA].filter((x) => setB.has(x));
+
+      // console.log(arrC);
+
+      let setNum = new Set([1, 2, 3, 4, 5]);
+      setNum = Array.from(setNum);
+      console.log(setNum);
+    </script>
+  </body>
+</html>

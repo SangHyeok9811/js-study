@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let people = [
+        { name: "John", age: 23 },
+        { name: "Adam", age: 30 },
+        { name: "Zoe", age: 28 },
+        { name: "Emma", age: 20 },
+      ];
+
+      people.sort((a, b) => a.name.localeCompare(b.name));
+      // console.log(people);
+
+      let findJohn = people.some((p) => p.name === "John");
+      // console.log(findJohn);
+
+      let sumAge = people.reduce((a, b) => a + b.age, 0);
+      // console.log(sumAge);
+
+      let sum = 0;
+
+      // console.log(people.filter((p) => p.age > 25).map((p) => p.name));
+
+      const peopleName = people.map((p) => p.name).join(",");
+      // console.log(peopleName);
+
+      let oldestPeople = people.reduce((oldest, p) =>
+        oldest.age > p.age ? oldest : person
+      );
+      // console.log(oldestPeople);
+      // console.log(people.sort((a, b) => b.age - a.age)[0]);
+
+      let sentence = "Hello world";
+      let sentence1 = sentence
+        .split(" ")
+        .map((s1) => s1.toUpperCase())
+        .join(" ");
+      // console.log(sentence1);
+
+      let nameAge = people.map((p) => `${p.name}: ${p.age}`);
+      // console.log(nameAge);
+
+      console.log(
+        people.reduce((total, p) => total + p.age, 0) / people.length
+      );
+
+      console.log(people.some((n) => n.name.includes("a")));
+    </script>
+  </body>
+</html>
