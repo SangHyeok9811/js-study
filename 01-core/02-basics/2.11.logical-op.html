@@ -23,7 +23,7 @@
       // 단락 평가(short-circuit evalution)
       // b: truthy, a는 평가하지 않음.
       const d = b || a;
-      // alert(c);
+      // alert(d);
 
       // "" || alert("앞에 것이 falsy");
       // getName() || alert("이름값이 없습니다");
@@ -38,8 +38,8 @@
       // boolean 값으로 변환
       // !값: 반대 boolean
       // !!값: 식 평가와 동일한 boolean
-      alert(!a);
-      alert(!!a);
+      // alert(!a);
+      // alert(!!a);
 
       // !!형변환 할 때
       // 문자열변환: "" + 값
@@ -50,8 +50,8 @@
       // alert(r);
       // // null 또는 undefined아닌 값 찾기
       // // 존재하는 값을 찾는다..
-      // const r2 = 0 ?? "" ?? null ?? undefined ?? "abc" ?? "def";
-      // alert(r2);
+      const r2 = 0 ?? "" ?? null ?? undefined ?? "abc" ?? "def";
+      alert(r2);
       const a1 = 0;
       const a2 = "";
       let a3;
