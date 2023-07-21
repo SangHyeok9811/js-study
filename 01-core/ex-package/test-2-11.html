@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2.11</title>
+  </head>
+  <body>
+    <script>
+      // // 사이 범위 확인하기
+      // let age = prompt("나이를 입력하세오");
+      // if (age >= 14 && age <= 90) {
+      //   alert("14세 이상 90세 이하");
+      // } else {
+      //   alert("포함 x");
+      // }
+
+      // // 바깥 범위 확인하기
+      // let age = prompt("나이를 입력하세오");
+      // if (age < 14 || age > 90) {
+      //   alert("포함 x");
+      // } else {
+      //   alert("14세 이상 90세 이하");
+      // }
+
+      let age = prompt("나이를 입력하세오");
+      if (!(age >= 14 && age <= 90)) {
+        alert("포함 x");
+      } else {
+        alert("14세 이상 90세 이하");
+      }
+    </script>
+  </body>
+</html>
