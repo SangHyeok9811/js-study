@@ -2,12 +2,12 @@ function createSection(no, title, content, creatorName, createdTime) {
   const section = document.createElement("section");
   section.dataset.no = no;
   section.innerHTML = `
-  <li>${no}</li></hr>
-  <li><u>게시자</u></br></br>${creatorName}</li><hr>
+  <div>${no}</div></hr>
+  <div><u>게시자</u></br></br>${creatorName}</div><hr>
   <h3><u>제목</u></br></br>${title}</h3><br>
-  <li><u>본문</u></br></br>${content}</li><hr>
-  <li><u>생성시간</u></br></br>
- ${new Date(createdTime).toLocaleString()}</li>`;
+  <div><u>본문</u></br></br>${content}</div><hr>
+  <div><u>생성시간</u></br></br>
+ ${new Date(createdTime).toLocaleString()}</div>`;
   return section;
 }
 
@@ -17,10 +17,10 @@ function createSection(no, title, content, creatorName, createdTime) {
   const result = await data.json();
   console.log(result);
 
-  const body = document.querySelector("body");
+  const div = document.querySelector("div");
 
   for (let item of result) {
-    body.append(
+    div.append(
       createSection(
         item.no,
         item.creatorName,
@@ -76,6 +76,34 @@ function createSection(no, title, content, creatorName, createdTime) {
     );
     form.reset();
     console.log("추가폼 처리 코드");
+  });
+})();
+
+// 삭제폼
+(() => {
+  const form = document.querySelectorAll("form")[1];
+
+  const no = form.querySelector("input");
+  console.log(no);
+  const del = form.querySelector("button");
+
+  del.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    // 서버통신
+    await fetch(`http://localhost:8080/posts/${no.value}`, {
+      method: "DELETE",
+    });
+    const numSection = document.querySelector(`section[data-no="${no.value}"]`);
+    console.log(no.value);
+    if (!numSection) {
+      alert("해당 번호 게시글이 없습니다.");
+      return;
+    }
+
+    numSection.remove();
+
+    form.reset();
   });
 })();
 
