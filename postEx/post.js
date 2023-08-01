@@ -11,16 +11,16 @@ function createSection(no, title, content, creatorName, createdTime) {
   return section;
 }
 
+const contentDiv = document.querySelector("#contentDiv");
+
 (async () => {
   const data = await fetch("http://localhost:8080/posts");
 
   const result = await data.json();
   console.log(result);
 
-  const div = document.querySelector("div");
-
   for (let item of result) {
-    div.append(
+    contentDiv.append(
       createSection(
         item.no,
         item.creatorName,
@@ -34,12 +34,9 @@ function createSection(no, title, content, creatorName, createdTime) {
 
 // 추가폼 처리
 (() => {
-  const form = document.querySelector("form");
-  const input = form.querySelector("input");
-  const inputContent = form.querySelector("textarea");
-
-  const title = input;
-  const content = inputContent;
+  const form = document.querySelectorAll("form")[0];
+  const title = form.querySelector("input");
+  const content = form.querySelector("textarea");
 
   const add = form.querySelector("button");
 
@@ -62,10 +59,9 @@ function createSection(no, title, content, creatorName, createdTime) {
     const result = await response.json();
     console.log(result);
 
-    const div = document.querySelector("div");
     // 삭제할 때 사용하려고 데이터 속성을 추가함
 
-    div.prepend(
+    contentDiv.prepend(
       createSection(
         result.data.no,
         result.data.creatorName,

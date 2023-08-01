@@ -9,7 +9,10 @@ function createRow(name, phone, email, image) {
   <td>${name}</td>
   <td>${phone}</td>
   <td>${email}</td>
-  <td><img width="auto" height="30" src="${image}" alt="${name}"></td>`;
+  <td>${
+    image ? `<img width="auto" height="30" src="${image}" alt="${name}">` : ""
+  }</td>
+  `;
   return tr;
 }
 
@@ -60,14 +63,9 @@ function createRow(name, phone, email, image) {
       return;
     }
 
-    const reader = new FileReader();
-    // reader로 파일을 읽기가 완료되면 실행되는 이벤트 핸들러 함수
-    reader.addEventListener("load", async (e) => {
-      console.log(e);
-      // file -> base64 data-url
-      const image = e.target.result;
-
-      // -- 서버전송하면 UI 생성
+    // 데이터를 서버에 전송하고, UI요소 생성
+    async function createContact(image) {
+      /// --- 서버전송하면 UI 생성
 
       // 서버에  데이터를 전송
       // fetch(url, options)
@@ -83,7 +81,7 @@ function createRow(name, phone, email, image) {
           name: name.value,
           phone: phone.value,
           email: email.value,
-          image,
+          image: image ? image : null,
         }),
       });
       console.log(response);
@@ -101,45 +99,59 @@ function createRow(name, phone, email, image) {
         .querySelector("tbody")
         .prepend(createRow(data.name, data.phone, data.email, data.image));
       form.reset();
-    });
-    // 파일을 dataURL(base64)로 읽음
-    reader.readAsDataURL(file.files[0]);
+    }
+    if (file.files[0]) {
+      // 파일이 있을 때
+      const reader = new FileReader();
+      // reader로 파일을 읽기가 완료되면 실행되면 이벤트 핸들러 함수
+      reader.addEventListener("load", async (e) => {
+        console.log(e);
+        // file -> base64 data-url
+        const image = e.target.result;
+        createContact(image);
+      });
+      // 파일을 dataURL(base64)로 읽음
+      reader.readAsDataURL(file.files[0]);
+    } else {
+      // 파일이 없을 때
+      createContact();
+    }
 
-    return;
-
-    // // 서버에  데이터를 전송
-    // // fetch(url, options)
-    // const response = await fetch("http://localhost:8080/contacts", {
-    //   // await를 쓰지않으면 코드가 기다리지않고 돌아감
-    //   // HTTP Method
-    //   method: "POST",
-    //   // 보낼 데이터 형식은 json
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     email: email.value,
-    //     name: name.value,
-    //     phone: phone.value,
-    //   }),
-    // });
-    // console.log(response);
-    // const result = await response.json();
-    // console.log(result);
-
-    // // 화면에 요소를 추가하는 것은 데이처리가 정상적으로 된 다음에
-    // // --- 3. 어딘가(부모, 다른요소)에 추가한다(append, prepend);
-
-    // const tbody = document.querySelector("tbody");
-    // const tr = document.createElement("tr");
-    // // 삭제할 때 사용하려고 데이터 속성을 추가함
-
-    // tbody.prepend(createRow(name.value, phone.value, email.value));
-    // form.reset();
+    // return;
   });
 
   console.log("추가폼 처리 코드");
 })();
+
+// // 서버에  데이터를 전송
+// // fetch(url, options)
+// const response = await fetch("http://localhost:8080/contacts", {
+//   // await를 쓰지않으면 코드가 기다리지않고 돌아감
+//   // HTTP Method
+//   method: "POST",
+//   // 보낼 데이터 형식은 json
+//   headers: {
+//     "content-type": "application/json",
+//   },
+//   body: JSON.stringify({
+//     email: email.value,
+//     name: name.value,
+//     phone: phone.value,
+//   }),
+// });
+// console.log(response);
+// const result = await response.json();
+// console.log(result);
+
+// // 화면에 요소를 추가하는 것은 데이처리가 정상적으로 된 다음에
+// // --- 3. 어딘가(부모, 다른요소)에 추가한다(append, prepend);
+
+// const tbody = document.querySelector("tbody");
+// const tr = document.createElement("tr");
+// // 삭제할 때 사용하려고 데이터 속성을 추가함
+
+// tbody.prepend(createRow(name.value, phone.value, email.value));
+// form.reset();
 
 // 삭제폼
 (() => {
@@ -155,10 +167,11 @@ function createRow(name, phone, email, image) {
     await fetch(`http://localhost:8080/contacts/${email.value}`, {
       method: "DELETE",
     });
+
     const tr = document.querySelector(`tr[data-email="${email.value}"]`);
 
     if (!tr) {
-      alert("해당 이름의 이메일이 없습니다.");
+      alert("해당 이메일의 연락처 없습니다.");
       return;
     }
 

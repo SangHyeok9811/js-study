@@ -14,7 +14,7 @@
         margin: 50px;
         border-radius: 20px;
       }
-      #divWrap {
+      #contentDiv {
         flex-wrap: wrap;
         display: flex;
       }
@@ -36,9 +36,11 @@
   </head>
   <body>
     <h2></h2>
-    <form action="">
+    <div>
       <label>이미지: <input type="file" /></label>
-      <hr />
+    </div>
+    <hr />
+    <form action="">
       <label>제목: <br /><input type="text" /></label><br />
       <label>내용: <br /><textarea></textarea></label><br />
       <button>추가</button>
@@ -48,7 +50,7 @@
       <label>삭제번호: <input type="text" id="delectNo" /> </label><br />
       <button>삭제</button>
     </form>
-    <div class="divWrap"></div>
-    <script src="ex01.js"></script>
+    <div id="contentDiv"></div>
+    <script src="post.js"></script>
   </body>
 </html>
