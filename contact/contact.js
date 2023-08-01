@@ -5,13 +5,14 @@ function createRow(name, phone, email, image) {
 
   // 2. 요소의 속성 설정
   tr.dataset.email = email;
-  tr.innerHTML = `
+  tr.innerHTML = /*html*/ `
   <td>${name}</td>
   <td>${phone}</td>
-  <td>${email}</td>
+  <td>${email}</td>  
   <td>${
     image ? `<img width="auto" height="30" src="${image}" alt="${name}">` : ""
   }</td>
+  <td><button class="btn-modify">수정</button></td>
   `;
   return tr;
 }
@@ -19,7 +20,6 @@ function createRow(name, phone, email, image) {
 // 데이터 조회 및 목록 생성
 (async () => {
   const response = await fetch("http://localhost:8080/contacts");
-
   // 결과가 배열
   const result = await response.json();
   console.log(result);
@@ -30,7 +30,6 @@ function createRow(name, phone, email, image) {
   for (let item of result) {
     tbody.append(createRow(item.name, item.phone, item.email, item.image));
   }
-  console.log("연동?");
 })();
 
 // 추가폼 처리
@@ -67,10 +66,9 @@ function createRow(name, phone, email, image) {
     async function createContact(image) {
       /// --- 서버전송하면 UI 생성
 
-      // 서버에  데이터를 전송
+      // 서버에 데이터를 전송
       // fetch(url, options)
       const response = await fetch("http://localhost:8080/contacts", {
-        // await를 쓰지않으면 코드가 기다리지않고 돌아감
         // HTTP Method
         method: "POST",
         // 보낼 데이터 형식은 json
@@ -78,9 +76,9 @@ function createRow(name, phone, email, image) {
           "content-type": "application/json",
         },
         body: JSON.stringify({
+          email: email.value,
           name: name.value,
           phone: phone.value,
-          email: email.value,
           image: image ? image : null,
         }),
       });
@@ -94,12 +92,12 @@ function createRow(name, phone, email, image) {
       const { data } = result;
 
       // --- 3. 어딘가(부모, 다른요소)에 추가한다(append, prepend);
-
       document
         .querySelector("tbody")
         .prepend(createRow(data.name, data.phone, data.email, data.image));
       form.reset();
     }
+
     if (file.files[0]) {
       // 파일이 있을 때
       const reader = new FileReader();
@@ -123,37 +121,7 @@ function createRow(name, phone, email, image) {
   console.log("추가폼 처리 코드");
 })();
 
-// // 서버에  데이터를 전송
-// // fetch(url, options)
-// const response = await fetch("http://localhost:8080/contacts", {
-//   // await를 쓰지않으면 코드가 기다리지않고 돌아감
-//   // HTTP Method
-//   method: "POST",
-//   // 보낼 데이터 형식은 json
-//   headers: {
-//     "content-type": "application/json",
-//   },
-//   body: JSON.stringify({
-//     email: email.value,
-//     name: name.value,
-//     phone: phone.value,
-//   }),
-// });
-// console.log(response);
-// const result = await response.json();
-// console.log(result);
-
-// // 화면에 요소를 추가하는 것은 데이처리가 정상적으로 된 다음에
-// // --- 3. 어딘가(부모, 다른요소)에 추가한다(append, prepend);
-
-// const tbody = document.querySelector("tbody");
-// const tr = document.createElement("tr");
-// // 삭제할 때 사용하려고 데이터 속성을 추가함
-
-// tbody.prepend(createRow(name.value, phone.value, email.value));
-// form.reset();
-
-// 삭제폼
+// 삭제폼 처리
 (() => {
   const form = document.forms[1];
 
@@ -178,5 +146,74 @@ function createRow(name, phone, email, image) {
     tr.remove();
 
     form.reset();
+  });
+})();
+
+// 수정처리(이벤트 위임)
+(() => {
+  document.querySelector("tbody").addEventListener("click", (e) => {
+    // 수정버튼을 클릭한 이벤트에 작동
+    if (e.target.classList.contains("btn-modify")) {
+      // jsdoc type 힌트를 넣어줌
+      /** @type {HTMLButtonElement} */
+      const modifyBtn = e.target;
+      // button -> td -> tr
+      const row = modifyBtn.parentElement.parentElement; // tr
+      // tr의 모든 데이터셀의 내부값 가져오기
+      const cells = row.querySelectorAll("td");
+      console.log(cells[0].innerHTML, cells[1].innerHTML, cells[2].innerHTML);
+
+      // 모달 레이어 띄우기
+      /** @type {HTMLDivElement} */
+      const layer = document.querySelector("#modify-layer");
+      layer.hidden = false;
+
+      // 모달 내부의 폼에 선택값을 채워 넣음
+      layer.querySelector("h3").innerHTML = cells[2].innerHTML;
+      const inputs = layer.querySelectorAll("input");
+      inputs[0].value = cells[0].innerHTML;
+      inputs[1].value = cells[1].innerHTML;
+
+      // 확인/취소 버튼이 이벤트 핸들러 추가
+      const buttons = layer.querySelectorAll("button");
+      // 취소 버튼
+      buttons[1].addEventListener("click", (e) => {
+        e.preventDefault();
+        layer.hidden = true;
+      });
+
+      // 수정 버튼
+      buttons[0].addEventListener("click", async (e) => {
+        e.preventDefault();
+        // 셀이 있는 고정값
+        const email = cells[2].innerHTML;
+        // 입력값으로
+        const name = inputs[0].value;
+        const phone = inputs[1].value;
+
+        const options = {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+          }),
+        };
+        // 서버 연동
+        const response = await fetch(
+          `http://localhost:8080/contacts/${email}`,
+          options
+        );
+
+        console.log(response.status);
+
+        // 데이터셀의 값을 수정입력 폼의 값으로 바꿨음.
+        cells[0].innerHTML = inputs[0].value;
+        cells[1].innerHTML = inputs[1].value;
+        layer.hidden = true;
+      });
+    }
   });
 })();
